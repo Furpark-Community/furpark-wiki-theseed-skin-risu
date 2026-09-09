@@ -56,7 +56,9 @@ catch {
 
 const importEngineMenu = async () => {
   try {
-    const module = await import(/* @vite-ignore */ '~/components/notificationMenu.vue')
+    /* 붙여 쓰면 vite가 정적 문자열로 보고 해석을 시도해 dev transform이 실패한다.
+     * webpack은 리터럴 연결을 폴딩하므로 청크는 그대로 나온다 */
+    const module = await import(/* @vite-ignore */ '~/components/' + 'notificationMenu.vue')
     return module?.default ?? null
   }
   catch {
