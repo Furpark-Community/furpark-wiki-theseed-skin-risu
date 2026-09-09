@@ -9,20 +9,22 @@
     </template>
     <div class="dropdown-menu dropdown-menu-right risu-notif-menu">
       <template v-if="hasList">
-        <template v-if="notifications.length">
-          <template v-for="item in notifications" :key="item.uuid">
-            <nuxt-link v-if="linkOf(item)" :to="linkOf(item)" class="dropdown-item risu-notif-item">
-              <span class="risu-notif-title">{{ titleOf(item) }}</span>
-              <span v-if="previewOf(item)" class="risu-notif-preview">{{ previewOf(item) }}</span>
-              <local-date class="risu-notif-date" :date="item.createdAt" relative />
-            </nuxt-link>
-            <div v-else class="dropdown-item risu-notif-item">
-              <span class="risu-notif-title risu-notif-html" v-html="item.data" @click="onDynamicContentClick($event)"></span>
-              <local-date class="risu-notif-date" :date="item.createdAt" relative />
-            </div>
+        <div class="risu-notif-list">
+          <template v-if="notifications.length">
+            <template v-for="item in notifications" :key="item.uuid">
+              <nuxt-link v-if="linkOf(item)" :to="linkOf(item)" class="dropdown-item risu-notif-item">
+                <span class="risu-notif-title">{{ titleOf(item) }}</span>
+                <span v-if="previewOf(item)" class="risu-notif-preview">{{ previewOf(item) }}</span>
+                <local-date class="risu-notif-date" :date="item.createdAt" relative />
+              </nuxt-link>
+              <div v-else class="dropdown-item risu-notif-item">
+                <span class="risu-notif-title risu-notif-html" v-html="item.data" @click="onDynamicContentClick($event)"></span>
+                <local-date class="risu-notif-date" :date="item.createdAt" relative />
+              </div>
+            </template>
           </template>
-        </template>
-        <div v-else class="dropdown-item risu-notif-empty">새 알림이 없습니다.</div>
+          <div v-else class="dropdown-item risu-notif-empty">새 알림이 없습니다.</div>
+        </div>
         <div class="dropdown-divider"></div>
         <nuxt-link to="/member/notifications" class="dropdown-item">알림 전체 보기</nuxt-link>
       </template>
