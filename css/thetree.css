@@ -127,6 +127,12 @@ body.theseed-dark-mode.theseed-dark-mode .risu .row-parent .row:hover {
  * 충돌 (사용자 피드백). 팔레트 틴트로 교체. */
 body:not(.theseed-dark-mode) .risu div.comment div.user-block.user-starter {
     background: var(--risu-pink);
+    color: var(--risu-on-brand);
+}
+
+body:not(.theseed-dark-mode) .risu div.comment div.user-block.user-starter a,
+body:not(.theseed-dark-mode) .risu div.comment div.user-block.user-starter a:hover {
+    color: var(--risu-on-brand);
 }
 
 body.theseed-dark-mode.theseed-dark-mode .risu div.comment div.user-block.user-starter {
