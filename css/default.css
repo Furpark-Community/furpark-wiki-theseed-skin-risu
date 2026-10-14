@@ -477,6 +477,13 @@ body {
     max-width: 21rem;
 }
 
+.risu .risu-notif-list,
+.risu .risu-notif-engine {
+    max-height: min(60vh, 24rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
 .risu .risu-notif-item {
     white-space: normal;
     line-height: 1.45;
