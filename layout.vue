@@ -90,7 +90,6 @@
 @import "./css/tokens.css";
 @import "./css/default.css";
 @import "./css/mobile.css";
-@import "./css/dark.css";
 @import "./css/thetree.css";
 </style>
 
@@ -129,6 +128,9 @@ export default {
     $route() {
       this.isShowACLMessage = false
       this.hasToc = false
+    },
+    '$store.state.currentTheme'() {
+      this.syncColorScheme()
     },
   },
   head() {
@@ -213,32 +215,7 @@ export default {
       const r = parseInt(shadow.substring(1, 3), 16)
       const g = parseInt(shadow.substring(3, 5), 16)
       const b = parseInt(shadow.substring(5, 7), 16)
-      const lightVars = [
-        `--risu-pink:${brand}`,
-        `--risu-pink-soft:${soft}`,
-        `--risu-pink-mist:${tint(100, 96)}`,
-        `--risu-page-bg:${tint(100, 98)}`,
-        `--risu-border:${tint(69, 88)}`,
-        `--risu-border-soft:${tint(75, 94)}`,
-        `--risu-rose:${rose}`,
-        `--risu-rose-hover:${deep(56, 43)}`,
-        `--risu-rose-deep:${roseDeep}`,
-        `--risu-on-brand:${onBrand}`,
-        `--risu-text:${text}`,
-        `--risu-text-muted:${muted}`,
-        `--risu-shadow-sm:0 2px 8px rgba(${r},${g},${b},0.10)`,
-        `--risu-shadow-md:0 6px 20px rgba(${r},${g},${b},0.14)`,
-        `--risu-shadow-lg:0 10px 32px rgba(${r},${g},${b},0.18)`,
-        /* :root에 선언된 제네릭 매핑은 그 시점 값으로 굳으므로 여기서 재선언 */
-        `--text-color:${text}`,
-        `--text-secondary-color:${muted}`,
-        `--brand-color-1:${rose}`,
-        `--brand-color-2:${rose}`,
-        `--brand-bright-color-1:${soft}`,
-        `--brand-bright-color-2:${soft}`,
-      ]
-
-      /* 다크 레시피 (tokens.css 다크 블록의 HSL 분해값 기준) */
+      /* 다크 레시피 (tokens.css 다크 값의 HSL 분해값 기준) */
       const dSoft = tint(22, 24)
       const dRose = deep(100, 81)
       const dText = deep(37, 91)
@@ -247,7 +224,7 @@ export default {
       const dRoseDeep = deep(100, 91)
 
       /* 엔진 컴포넌트가 테마를 스스로 고르는 light/dark 변수 쌍
-             * (thetree.css :root 고정 선언을 덮는다) — 양쪽 블록에 모두 공급 */
+             * (thetree.css :root 고정 선언을 덮는다) */
       const themePair = [
         `--light-text-color:${text}`,
         `--dark-text-color:${dText}`,
@@ -256,32 +233,35 @@ export default {
         `--light-text-secondary-color:${muted}`,
         `--dark-text-secondary-color:${dMuted}`,
       ]
-      const darkVars = [
-        `--risu-pink:${tint(23, 18)}`,
-        `--risu-pink-soft:${dSoft}`,
-        `--risu-pink-mist:${tint(10, 16)}`,
-        `--risu-page-bg:${tint(12, 10)}`,
-        `--risu-card-bg:${dCard}`,
-        `--risu-border:${tint(12, 25)}`,
-        `--risu-border-soft:${tint(10, 19)}`,
-        `--risu-rose:${dRose}`,
-        `--risu-rose-hover:${deep(100, 86)}`,
-        `--risu-rose-deep:${dRoseDeep}`,
-        `--risu-on-brand:${dRoseDeep}`,
-        `--risu-text:${dText}`,
-        `--risu-text-muted:${dMuted}`,
-        `--text-color:${dText}`,
-        `--text-secondary-color:${dMuted}`,
-        `--article-background-color:${dCard}`,
-        `--brand-color-1:${dRose}`,
-        `--brand-color-2:${dRose}`,
-        `--brand-bright-color-1:${dSoft}`,
-        `--brand-bright-color-2:${dSoft}`,
+      const vars = [
+        `--risu-pink:light-dark(${brand},${tint(23, 18)})`,
+        `--risu-pink-soft:light-dark(${soft},${dSoft})`,
+        `--risu-pink-mist:light-dark(${tint(100, 96)},${tint(10, 16)})`,
+        `--risu-page-bg:light-dark(${tint(100, 98)},${tint(12, 10)})`,
+        `--risu-card-bg:light-dark(#FFFFFF,${dCard})`,
+        `--risu-border:light-dark(${tint(69, 88)},${tint(12, 25)})`,
+        `--risu-border-soft:light-dark(${tint(75, 94)},${tint(10, 19)})`,
+        `--risu-rose:light-dark(${rose},${dRose})`,
+        `--risu-rose-hover:light-dark(${deep(56, 43)},${deep(100, 86)})`,
+        `--risu-rose-deep:light-dark(${roseDeep},${dRoseDeep})`,
+        `--risu-on-brand:light-dark(${onBrand},${dRoseDeep})`,
+        `--risu-text:light-dark(${text},${dText})`,
+        `--risu-text-muted:light-dark(${muted},${dMuted})`,
+        `--risu-shadow-sm:0 2px 8px light-dark(rgba(${r},${g},${b},0.10),rgba(0,0,0,0.30))`,
+        `--risu-shadow-md:0 6px 20px light-dark(rgba(${r},${g},${b},0.14),rgba(0,0,0,0.36))`,
+        `--risu-shadow-lg:0 10px 32px light-dark(rgba(${r},${g},${b},0.18),rgba(0,0,0,0.44))`,
+        /* :root에 선언된 제네릭 매핑은 그 시점 값으로 굳으므로 여기서 재선언 */
+        `--text-color:light-dark(${text},${dText})`,
+        `--text-secondary-color:light-dark(${muted},${dMuted})`,
+        `--article-background-color:light-dark(#FFFFFF,${dCard})`,
+        `--brand-color-1:light-dark(${rose},${dRose})`,
+        `--brand-color-2:light-dark(${rose},${dRose})`,
+        `--brand-bright-color-1:light-dark(${soft},${dSoft})`,
+        `--brand-bright-color-2:light-dark(${soft},${dSoft})`,
+        ...themePair,
       ]
 
-      /* 다크는 tokens.css의 body.theseed-dark-mode(0,1,1)를 이기도록 클래스 중복으로 특이도 확보 */
-      return `body:not(.theseed-dark-mode){${[...lightVars, ...themePair].join(';')}}`
-        + `body.theseed-dark-mode.theseed-dark-mode{${[...darkVars, ...themePair].join(';')}}`
+      return `:root body{${vars.join(';')}}`
     },
     selectedFont() {
       const value = this.$store.state.localConfig['risu.font']
@@ -420,6 +400,12 @@ export default {
     selectByTheme(light, dark) {
       return this.$store.state.currentTheme === 'dark' ? dark : light
     },
+    syncColorScheme() {
+      if (typeof document === 'undefined') return
+      const theme = this.$store.state.currentTheme
+      if (theme === 'light' || theme === 'dark') document.documentElement.style.colorScheme = theme
+      else document.documentElement.style.removeProperty('color-scheme')
+    },
     checkToc() {
       const resolvers = this.$router?.customHashSelector
       if (Array.isArray(resolvers)) {
@@ -430,12 +416,14 @@ export default {
     },
   },
   mounted() {
+    this.syncColorScheme()
     this.checkToc()
     this.tocObserver = new MutationObserver(this.checkToc)
     this.tocObserver.observe(this.$refs.article, { childList: true, subtree: true })
   },
   beforeUnmount() {
     this.tocObserver?.disconnect()
+    if (typeof document !== 'undefined') document.documentElement.style.removeProperty('color-scheme')
   },
 }
 </script>

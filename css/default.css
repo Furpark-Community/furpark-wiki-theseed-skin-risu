@@ -68,6 +68,20 @@ body {
     color: var(--risu-rose-deep);
 }
 
+.risu ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.risu ::-webkit-scrollbar-track {
+    background: var(--risu-page-bg);
+}
+
+.risu ::-webkit-scrollbar-thumb {
+    background: var(--risu-pink-soft);
+    border-radius: var(--risu-radius-pill);
+}
+
 /* 키보드 포커스 가시화 */
 .risu .risu-nav-link:focus-visible,
 .risu .risu-brand:focus-visible,
@@ -103,8 +117,8 @@ body {
 
 .risu .btn:hover,
 .risu .btn:focus {
-    background-color: var(--risu-pink-mist);
-    color: var(--risu-rose-hover);
+    background-color: light-dark(var(--risu-pink-mist), var(--risu-pink-soft));
+    color: light-dark(var(--risu-rose-hover), var(--risu-rose-deep));
     text-decoration: none;
     outline: 0;
 }
@@ -131,14 +145,14 @@ body {
 .risu .btn-danger {
     background-color: var(--risu-danger);
     border-color: var(--risu-danger);
-    color: #fff;
+    color: light-dark(#fff, #2B1218);
 }
 
 .risu .btn-danger:hover,
 .risu .btn-danger:focus {
     background-color: var(--risu-danger);
     border-color: var(--risu-danger);
-    color: #fff;
+    color: light-dark(#fff, #2B1218);
     filter: brightness(0.92);
 }
 
@@ -303,8 +317,8 @@ body {
 }
 
 .risu .dropdown-item:hover {
-    background-color: var(--risu-pink-mist);
-    color: var(--risu-rose-hover);
+    background-color: light-dark(var(--risu-pink-mist), var(--risu-pink-soft));
+    color: light-dark(var(--risu-rose-hover), var(--risu-rose-deep));
     text-decoration: none;
 }
 
@@ -616,8 +630,8 @@ body {
 }
 
 .risu .v-autocomplete-list-item.v-autocomplete-item-active {
-    background-color: var(--risu-pink-mist);
-    color: var(--risu-rose-hover);
+    background-color: light-dark(var(--risu-pink-mist), var(--risu-pink-soft));
+    color: light-dark(var(--risu-rose-hover), var(--risu-rose-deep));
 }
 
 /* ===== page frame ===== */
@@ -888,8 +902,8 @@ body {
 }
 
 .risu .live-recent-list .recent-item:hover {
-    background-color: var(--risu-pink-mist);
-    color: var(--risu-rose-hover);
+    background-color: light-dark(var(--risu-pink-mist), var(--risu-pink-soft));
+    color: light-dark(var(--risu-rose-hover), var(--risu-rose-deep));
     text-decoration: none;
 }
 
