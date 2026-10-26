@@ -1,8 +1,8 @@
 <template>
   <header class="risu-navbar" :class="{ scrolled }">
     <nuxt-link class="risu-brand" to="/">
-      <img v-if="logoImage" :src="logoImage" :alt="logoText">
-      <template v-else>{{ logoText }}</template>
+      <img v-if="logoImage" :src="logoImage" :alt="showLogoText ? '' : logoText">
+      <template v-if="!logoImage || showLogoText">{{ logoText }}</template>
     </nuxt-link>
     <nav class="risu-nav">
       <nuxt-link class="risu-nav-link" to="/RecentChanges"><icon name="refresh" /><span class="hide-title">최근 변경</span></nuxt-link>
@@ -120,6 +120,10 @@ export default {
     },
     logoText() {
       return this.$store.state.config['skin.risu.logo_text'] ?? this.$store.state.config['wiki.site_name'] ?? 'risu'
+    },
+    showLogoText() {
+      const value = this.$store.state.config['skin.risu.logo_show_text']
+      return value === true || value === 'true'
     },
   },
   methods: {
