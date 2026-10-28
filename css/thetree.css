@@ -53,7 +53,7 @@
 .risu .wiki-article button.submit {
     background-color: var(--risu-rose) !important;
     border-color: var(--risu-rose) !important;
-    color: #fff !important;
+    color: light-dark(#fff, #2B1218) !important;
 }
 
 .risu .wiki-article button.submit:hover,
@@ -62,45 +62,20 @@
     border-color: var(--risu-rose-hover) !important;
 }
 
-body.theseed-dark-mode .risu .wiki-article button.submit,
-body.theseed-dark-mode .risu .wiki-article button.submit:hover,
-body.theseed-dark-mode .risu .wiki-article button.submit:focus {
-    color: #2B1218 !important;
-}
-
 /* generalButton primary(파랑) — CSS 모듈이지만 로컬 클래스명이 보존되므로 부분 일치.
  * 커스텀 프로퍼티만 바꾸면 .button 본체 규칙이 그대로 소비한다. */
-.risu [class*="button--primary"]:not([class*="button--disabled"]) {
+.risu.risu [class*="button--primary"]:not([class*="button--disabled"]) {
     --button-background-color: var(--risu-rose);
     --button-border-color: var(--risu-rose);
+    --button-color: light-dark(#fff, #2B1218);
 }
 
-.risu [class*="button--primary"]:not([class*="button--unreactive"]):not([class*="button--disabled"]):hover {
+.risu.risu [class*="button--primary"]:not([class*="button--unreactive"]):not([class*="button--disabled"]):hover {
     --button-background-color: var(--risu-rose-hover);
     --button-border-color: var(--risu-rose-hover);
 }
 
-.risu [class*="button--primary"]:not([class*="button--unreactive"]):not([class*="button--disabled"]):focus-visible {
-    --focus-outline-color: var(--risu-pink-soft);
-}
-
-/* 다크 모드: 엔진 다크 규칙(.theseed-dark-mode .button--primary:not(...))과 위
- * 라이트용 규칙이 특이도 동점(0,3,0)이라 로드 순서에 따라 엔진 파랑이 이길 수 있다.
- * 그 경우 아래 텍스트 오버라이드만 적용돼 "파란 배경 + 어두운 글자 = disabled처럼
- * 보이는" 조합이 됨. body 스코프(0,4,0)로 배경까지 결정적으로 덮는다.
- * (--risu-rose는 다크에서 밝은 핑크이므로 텍스트는 어둡게) */
-body.theseed-dark-mode .risu [class*="button--primary"]:not([class*="button--disabled"]) {
-    --button-background-color: var(--risu-rose);
-    --button-border-color: var(--risu-rose);
-    --button-color: #2B1218;
-}
-
-body.theseed-dark-mode .risu [class*="button--primary"]:not([class*="button--unreactive"]):not([class*="button--disabled"]):hover {
-    --button-background-color: var(--risu-rose-hover);
-    --button-border-color: var(--risu-rose-hover);
-}
-
-body.theseed-dark-mode .risu [class*="button--primary"]:not([class*="button--unreactive"]):not([class*="button--disabled"]):focus-visible {
+.risu.risu [class*="button--primary"]:not([class*="button--unreactive"]):not([class*="button--disabled"]):focus-visible {
     --focus-outline-color: var(--risu-pink-soft);
 }
 
@@ -113,28 +88,19 @@ body.theseed-dark-mode .risu [class*="button--primary"]:not([class*="button--unr
 /* 목록 행 호버 (최근 변경/토론의 .table-row, 알림의 .row) — 엔진이 회색
  * (#fbfbfb / #2a2a2a)을 깔아 팔레트와 어긋남 (GitHub #1).
  * 엔진 규칙은 scoped 속성 포함 (0,4~5,0)이므로 특이도를 확실히 위로. */
-body:not(.theseed-dark-mode) .risu .risu-content .table-row:not(.table-heading):hover,
-body:not(.theseed-dark-mode) .risu .risu-content .row-parent .row:hover {
-    background-color: var(--risu-pink-mist);
-}
-
-body.theseed-dark-mode.theseed-dark-mode .risu .table-row:not(.table-heading):hover,
-body.theseed-dark-mode.theseed-dark-mode .risu .row-parent .row:hover {
-    background-color: var(--risu-pink-soft);
+.risu.risu .risu-content .table-row:not(.table-heading):hover,
+.risu.risu .risu-content .row-parent .row:hover {
+    background-color: light-dark(var(--risu-pink-mist), var(--risu-pink-soft));
 }
 
 /* 토론 발제자 하이라이트 — 엔진의 초록(#b0d3ad / #324432)이 분홍 링크와
  * 충돌 (사용자 피드백). 팔레트 틴트로 교체. */
-body:not(.theseed-dark-mode) .risu div.comment div.user-block.user-starter {
-    background: var(--risu-pink);
+body .risu.risu div.comment div.user-block.user-starter {
+    background: light-dark(var(--risu-pink), var(--risu-pink-soft));
     color: var(--risu-on-brand);
 }
 
-body:not(.theseed-dark-mode) .risu div.comment div.user-block.user-starter a,
-body:not(.theseed-dark-mode) .risu div.comment div.user-block.user-starter a:hover {
+body .risu.risu div.comment div.user-block.user-starter a,
+body .risu.risu div.comment div.user-block.user-starter a:hover {
     color: var(--risu-on-brand);
-}
-
-body.theseed-dark-mode.theseed-dark-mode .risu div.comment div.user-block.user-starter {
-    background-color: var(--risu-pink-soft);
 }

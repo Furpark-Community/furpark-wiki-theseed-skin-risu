@@ -7,28 +7,30 @@
  */
 
 :root {
-    /* brand */
-    --risu-pink: #FFC0CB;
-    --risu-pink-soft: #FFD9E0;
-    --risu-pink-mist: #FFECF0;
+    /* brand
+     * 다크의 배경 계열은 채도를 절반으로 낮춘 값 (사용자 피드백: 다크 배경이
+     * 너무 분홍함) — 네비바(pink)·호버 fill(soft)·로즈 포인트는 유지 */
+    --risu-pink: light-dark(#FFC0CB, #3A242D);
+    --risu-pink-soft: light-dark(#FFD9E0, #4A2F3A);
+    --risu-pink-mist: light-dark(#FFECF0, #2D2528);
 
     /* surfaces */
-    --risu-page-bg: #FFF5F7;
-    --risu-card-bg: #FFFFFF;
-    --risu-border: #F6CDD7;
-    --risu-border-soft: #FBE3E9;
+    --risu-page-bg: light-dark(#FFF5F7, #1D1619);
+    --risu-card-bg: light-dark(#FFFFFF, #272023);
+    --risu-border: light-dark(#F6CDD7, #47383E);
+    --risu-border-soft: light-dark(#FBE3E9, #352C2F);
 
     /* interactive / text */
-    --risu-rose: #C2426A;        /* 4.9:1 on #FFF */
-    --risu-rose-hover: #A93058;
-    --risu-rose-deep: #6E2438;   /* 6.9:1 on #FFC0CB */
+    --risu-rose: light-dark(#C2426A, #FF9EB8);        /* 4.9:1 on #FFF / 8.4:1 on #272023 */
+    --risu-rose-hover: light-dark(#A93058, #FFBACB);
+    --risu-rose-deep: light-dark(#6E2438, #FFD3DD);   /* 6.9:1 on #FFC0CB */
     --risu-on-brand: var(--risu-rose-deep);  /* --risu-pink 배경(내비바 등) 전용 텍스트. 기본 핑크는 밝으므로 rose-deep과 동일 */
-    --risu-text: #43333A;
-    --risu-text-muted: #8A6E77;
-    --risu-danger: #D64560;
-    --risu-danger-mist: #FFE3E8;
-    --risu-success-mist: #DFF3E3;
-    --risu-success-deep: #1E5B33;
+    --risu-text: light-dark(#43333A, #F0DEE4);
+    --risu-text-muted: light-dark(#8A6E77, #B08E9B);
+    --risu-danger: light-dark(#D64560, #FF7A93);
+    --risu-danger-mist: light-dark(#FFE3E8, #4A2530);
+    --risu-success-mist: light-dark(#DFF3E3, #24392B);
+    --risu-success-deep: light-dark(#1E5B33, #A8DDB6);
 
     /* radii */
     --risu-radius-sm: 8px;
@@ -37,9 +39,9 @@
     --risu-radius-pill: 999px;
 
     /* shadows */
-    --risu-shadow-sm: 0 2px 8px rgba(201, 90, 124, 0.10);
-    --risu-shadow-md: 0 6px 20px rgba(201, 90, 124, 0.14);
-    --risu-shadow-lg: 0 10px 32px rgba(201, 90, 124, 0.18);
+    --risu-shadow-sm: 0 2px 8px light-dark(rgba(201, 90, 124, 0.10), rgba(0, 0, 0, 0.30));
+    --risu-shadow-md: 0 6px 20px light-dark(rgba(201, 90, 124, 0.14), rgba(0, 0, 0, 0.36));
+    --risu-shadow-lg: 0 10px 32px light-dark(rgba(201, 90, 124, 0.18), rgba(0, 0, 0, 0.44));
 
     /* typography */
     --risu-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
@@ -65,40 +67,10 @@
     --brand-bright-color-2: var(--risu-pink-soft);
 }
 
+body.theseed-light-mode {
+    color-scheme: light;
+}
+
 body.theseed-dark-mode {
-    /* 배경 계열은 채도를 절반으로 낮춘 값 (사용자 피드백: 다크 배경이 너무
-     * 분홍함) — 네비바(pink)·호버 fill(soft)·로즈 포인트는 유지 */
-    --risu-pink: #3A242D;
-    --risu-pink-soft: #4A2F3A;
-    --risu-pink-mist: #2D2528;
-
-    --risu-page-bg: #1D1619;
-    --risu-card-bg: #272023;
-    --risu-border: #47383E;
-    --risu-border-soft: #352C2F;
-
-    --risu-rose: #FF9EB8;        /* 8.4:1 on #272023 */
-    --risu-rose-hover: #FFBACB;
-    --risu-rose-deep: #FFD3DD;
-    --risu-on-brand: var(--risu-rose-deep);  /* 다크 테마의 --risu-pink은 항상 어두우므로 rose-deep(밝은 값)과 동일 */
-    --risu-text: #F0DEE4;
-    --risu-text-muted: #B08E9B;
-    --risu-danger: #FF7A93;
-    --risu-danger-mist: #4A2530;
-    --risu-success-mist: #24392B;
-    --risu-success-deep: #A8DDB6;
-
-    --risu-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.30);
-    --risu-shadow-md: 0 6px 20px rgba(0, 0, 0, 0.36);
-    --risu-shadow-lg: 0 10px 32px rgba(0, 0, 0, 0.44);
-
-    /* 제네릭 변수 매핑 재선언 — var() 참조는 "정의된 요소"에서 해석되므로
-     * :root의 매핑은 라이트 값으로 굳는다. 여기서 재선언해야 다크 값을 잡는다. */
-    --text-color: var(--risu-text);
-    --text-secondary-color: var(--risu-text-muted);
-    --article-background-color: var(--risu-card-bg);
-    --brand-color-1: var(--risu-rose);
-    --brand-color-2: var(--risu-rose);
-    --brand-bright-color-1: var(--risu-pink-soft);
-    --brand-bright-color-2: var(--risu-pink-soft);
+    color-scheme: dark;
 }

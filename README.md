@@ -5,7 +5,8 @@ the seed engine 및 호환 엔진용 밝고 둥근 파스텔 핑크 스킨입니
 | 키 | 설명 | 기본값 |
 |---|---|---|
 | `skin.risu.logo_text` | 내비게이션 바 로고 텍스트 | `wiki.site_name` |
-| `skin.risu.logo_image` | 로고 이미지 URL (설정 시 텍스트 대신 표시) | 없음 |
+| `skin.risu.logo_image` | 로고 이미지 URL (설정 시 기본적으로 텍스트 대신 표시) | 없음 |
+| `skin.risu.logo_show_text` | 로고 이미지 옆에 로고 텍스트도 함께 표시 | `false` |
 | `skin.risu.logo_width` | 로고 이미지 너비 (CSS 값) | `auto` |
 | `skin.risu.brand_color` | 브랜드 색상 오버라이드 (`#RRGGBB`) | `#FFC0CB` |
 | `skin.risu.footer_html` | 푸터에 표시할 HTML | 없음 |
